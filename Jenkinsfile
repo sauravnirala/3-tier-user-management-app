@@ -49,7 +49,7 @@ stages {
         steps {
             withSonarQubeEnv("${SONARQUBE_ENV}") {
                 sh """
-                /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar-scanner/bin/sonar-scanner \
+                   sonar-scanner \
                   -Dsonar.projectKey=calculatorwithpython \
                   -Dsonar.sources=app.py \
                   -Dsonar.exclusions=venv/**,__pycache__/** \
