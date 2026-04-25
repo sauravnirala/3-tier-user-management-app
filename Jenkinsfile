@@ -3,17 +3,17 @@ agent any
 
 environment {
     DOCKERHUB_USER    = 'sauravnirala'
-    TODO_REPO         = 'pythoncalculator'
+    TODO_REPO         = 'usermanagement'
     IMAGE_TAG         = "${env.BUILD_NUMBER}"
 
-    TODO_IMAGE        = "${DOCKERHUB_USER}/pythoncalculator:${IMAGE_TAG}"
-    TODO_LATEST       = "${DOCKERHUB_USER}/pythoncalculator:latest"
+    TODO_IMAGE        = "${DOCKERHUB_USER}/${TODO_REPO}:${IMAGE_TAG}"
+    TODO_LATEST       = "${DOCKERHUB_USER}/${TODO_REPO}:latest"
 
-    GIT_REPO_URL      = 'https://github.com/sauravnirala/calculatorwithpython.git'
-    GIT_BRANCH        = 'main'
+    GIT_REPO_URL      = 'https://github.com/sauravnirala/3-tier-user-management-app.git'
+    GIT_BRANCH        = 'master'
 
-    K8S_NAMESPACE     = 'calapp'
-    CAL_PORT          = '5000'
+    K8S_NAMESPACE     = 'userapp'
+    CAL_PORT          = '8087'
     SONARQUBE_ENV     = 'sq'
 }
 
@@ -81,7 +81,7 @@ stages {
         steps {
             withCredentials([usernamePassword(credentialsId: 'nexuscred', passwordVariable: 'passwd', usernameVariable: 'username')]) {
                 sh """
-                python3 -m twine upload --repository-url http://13.200.137.224:8081/repository/pypi-hosted/ \
+                python3 -m twine upload --repository-url http://13.126.211.117:8081/repository/pypi-hosted/ \
                 -u $username -p $passwd dist/*
                 """
             }
