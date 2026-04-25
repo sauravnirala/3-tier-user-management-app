@@ -38,7 +38,7 @@ stages {
     stage('Test') {
         steps {
             sh """
-               python3 -m install pytest pytest-cov
+               python3 -m pip install pytest pytest-cov
                python3 -m pytest --cov=app --cov-report=xml:coverage.xml test_app.py
             """
         }
