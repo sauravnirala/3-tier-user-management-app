@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Fetched Data</title>
     <style>
-        /* Add your custom CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -32,7 +31,7 @@
             background-color: #f2f2f2;
         }
         a {
-            display: block;
+            display: inline-block;
             margin-top: 20px;
             text-decoration: none;
             color: #007bff;
@@ -41,7 +40,7 @@
             text-decoration: underline;
         }
         .navbar {
-            background-color:rgb(25, 25, 105);
+            background-color: rgb(25, 25, 105);
             color: white;
             overflow: hidden;
             text-align: center;
@@ -58,7 +57,9 @@
             background-color: #ddd;
             color: black;
         }
-
+        .message {
+            color: #d9534f;
+        }
     </style>
 </head>
 <body>
@@ -68,7 +69,11 @@
     </div>
 
     <h1>Fetched Data</h1>
-    {% if data %}
+    {% if error %}
+        <p class="message">{{ error }}</p>
+    {% endif %}
+
+    {% if users %}
         <table>
             <tr>
                 <th>ID</th>
@@ -76,14 +81,16 @@
                 <th>Email</th>
                 <th>Address</th>
                 <th>Phone Number</th>
+                <th>Action</th>
             </tr>
-            {% for row in data %}
+            {% for user in users %}
                 <tr>
-                    <td>{{ row[0] }}</td>
-                    <td>{{ row[1] }}</td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>{{ user.phonenumber }}</td>
+                    <td><a href="/delete/{{ user.id }}">Delete</a></td>
                 </tr>
             {% endfor %}
         </table>
@@ -91,23 +98,7 @@
     {% else %}
         <p>No data found for the provided ID.</p>
     {% endif %}
-    <a href="/">Back to Home</a>
-    <!-- Your fetch data template -->
-<table border="1">
-    <tr>
-        <!-- Your table headers -->
-        <th>Action</th>
-    </tr>
-    {% for row in data %}
-        <tr>
-            <!-- Display data columns -->
-            <!-- Add a column for delete action -->
-            <td>
-                <a href="/delete/{{ row[0] }}">Delete</a>
-            </td>
-        </tr>
-    {% endfor %}
-</table>
 
+    <a href="/">Back to Home</a>
 </body>
 </html>

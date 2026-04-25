@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Stored User Data</title>
     <style>
-        /* Add your custom CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -12,7 +11,7 @@
             background-color: #f7f7f7;
         }
         .navbar {
-            background-color:  rgb(25, 25, 105);
+            background-color: rgb(25, 25, 105);
             color: white;
             overflow: hidden;
         }
@@ -56,29 +55,27 @@
     </div>
 
     <h1>Stored User Data</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Number</th>
-            <th>Password</th>
-
-
-        </tr>
-        {% for row in data %}
+    {% if user %}
+        <table>
             <tr>
-                <td>{{ row[0] }}</td>
-                <td>{{ row[1] }}</td>
-                <td>{{ row[2] }}</td>
-                <td>{{ row[3] }}</td>
-                <td>{{ row[4] }}</td>
-                <td>{{ row[5] }}</td>
-
-
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone Number</th>
             </tr>
-        {% endfor %}
-    </table>
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.phonenumber }}</td>
+            </tr>
+        </table>
+    {% else %}
+        <p>User creation failed.</p>
+    {% endif %}
+
+    <a href="/">Back to Home</a>
 </body>
 </html>
