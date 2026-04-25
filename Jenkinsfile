@@ -49,13 +49,12 @@ stages {
         steps {
             withSonarQubeEnv("${SONARQUBE_ENV}") {
                 sh """
-                   /opt/sonar-scanner/bin/sonar-scanner \
+                   opt/sonar-scanner/bin/sonar-scanner \
                   -Dsonar.projectKey=3-tier-user-management-app \
                   -Dsonar.sources=. \
-                  -Dsonar.tests=. \
-                  -Dsonar.python.coverage.reportPaths=coverage.xml \
-                  -Dsonar.exclusions=venv/**,__pycache__/** \
-                  -Dsonar.sourceEncoding=UTF-8
+                  -Dsonar.test.inclusions=test_*.py \
+                  -Dsonar.exclusions=venv/**,__pycache__/**,.dockerignore \
+                  -Dsonar.python.coverage.reportPaths=coverage.xml
                 """
             }
         }
