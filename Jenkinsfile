@@ -29,8 +29,8 @@ stages {
     stage('Install Dependencies') {
         steps {
             sh """
-                pip install -r requirements.txt
-                pip install --upgrade pip
+                pip3 install -r requirements.txt
+                pip3 install --upgrade pip3
             """
         }
     }
@@ -38,7 +38,7 @@ stages {
     stage('Test') {
         steps {
             sh """
-               pip install pytest pytest-cov
+               pip3 install pytest pytest-cov
                python3 -m pytest --cov=app --cov-report=xml:coverage.xml test_app.py
             """
         }
