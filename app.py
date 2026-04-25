@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import mysql.connector
+import mysql.connector, config
 import bcrypt  
 
 from config import DATABASE_CONFIG
