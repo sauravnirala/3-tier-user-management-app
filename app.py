@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from services.user_service import initialize_app_database, create_user, fetch_user_by_id, remove_user_by_id
+import os
 
 app = Flask(__name__)
 
-initialize_app_database()
+if os.getenv("ENV") != "test":
+    initialize_app_database()
 
 @app.route('/')
 def index():
