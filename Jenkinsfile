@@ -51,11 +51,11 @@ stages {
                 sh """
                    sonar-scanner \
                   -Dsonar.projectKey=3-tier-user-management-app \
-                  -Dsonar.sources=app.py \
-                  -Dsonar.exclusions=venv/**,__pycache__/** \
+                  -Dsonar.sources=. \
+                  -Dsonar.tests=. \
                   -Dsonar.python.coverage.reportPaths=coverage.xml \
-                  -Dsonar.host.url=$SONAR_HOST_URL \
-                  -Dsonar.login=$SONAR_AUTH_TOKEN
+                  -Dsonar.exclusions=venv/**,__pycache__/** \
+                  -Dsonar.sourceEncoding=UTF-8
                 """
             }
         }
