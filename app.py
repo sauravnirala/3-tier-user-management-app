@@ -6,8 +6,19 @@ from config import DATABASE_CONFIG
 app = Flask(__name__)
 
 # MySQL configurations
-db = mysql.connector.connect(**DATABASE_CONFIG)
-cursor = db.cursor()
+import time
+
+for i in range(10):
+    try:
+        db = mysql.connector.connect(**DATABASE_CONFIG)
+        cursor = db.cursor()
+        print("✅ Connected to MySQL")
+        break
+    except Exception as e:
+        print("⏳ Waiting for MySQL...", e)
+        time.sleep(5)
+else:
+    raise Exception("❌ Could not connect to MySQL after retries")
 
 # Create a table to store user data if it doesn't exist
 create_table_query = """
