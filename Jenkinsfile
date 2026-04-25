@@ -49,7 +49,7 @@ stages {
         steps {
             withSonarQubeEnv("${SONARQUBE_ENV}") {
                 sh """
-                   sonar-scanner \
+                   /opt/sonar-scanner/bin/sonar-scanner \
                   -Dsonar.projectKey=3-tier-user-management-app \
                   -Dsonar.sources=. \
                   -Dsonar.tests=. \
