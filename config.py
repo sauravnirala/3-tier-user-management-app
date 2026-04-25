@@ -2,15 +2,12 @@ import os
 
 if os.getenv("ENV") == "test":
     DATABASE_CONFIG = {
-        "host": "localhost",
-        "user": "root",
-        "password": "",
-        "database": "test_db"
+        "database": ":memory:"
     }
 else:
     DATABASE_CONFIG = {
         "host": "db",
         "user": "root",
-        "password": "password",
-        "database": "userdb"
+        "password": "root",
+        "database": "testdb"
     }
