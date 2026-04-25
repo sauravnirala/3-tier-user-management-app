@@ -96,6 +96,23 @@ stages {
             """
         }
     }
+    stage('Run with Docker Compose') {
+        steps {
+            sh """
+                echo "Stopping any existing containers..."
+                docker-compose down || true
+    
+                echo "Starting application using docker-compose..."
+                docker-compose up -d --build
+    
+                echo "Waiting for app to be healthy..."
+                sleep 10
+    
+                docker ps
+            """
+        }
+    }
+    
 
     stage('Push to DockerHub') {
         steps {
@@ -122,11 +139,11 @@ stages {
 
                 cp projectdeploy.yml /tmp/all-apps.yml
 
-                sed -i 's|sauravnirala/pythoncalculator:v1|${TODO_IMAGE}|g' /tmp/all-apps.yml
+                sed -i 's|sauravnirala/usermanagement:v1|${TODO_IMAGE}|g' /tmp/all-apps.yml
 
                 kubectl apply -f /tmp/all-apps.yml
-                kubectl rollout restart deployment mycalcapp -n ${K8S_NAMESPACE}
-                kubectl rollout status deployment/mycalcapp -n ${K8S_NAMESPACE}
+                kubectl rollout restart deployment myuserapp -n ${K8S_NAMESPACE}
+                kubectl rollout status deployment/myuserapp -n ${K8S_NAMESPACE}
             """
         }
     }
