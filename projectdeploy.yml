@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mycalcapp
-  namespace: calapp
+  name: myuserapp
+  namespace: userapp
   labels:
-    app: mycalcapp
+    app: myuserapp
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: mycalcapp
+      app: myuserapp
   template:
     metadata:
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "5000"
+        prometheus.io/port: "8087"
         prometheus.io/path: "/metrics"
       labels:
-        app: mycalcapp
+        app: myuserapp
     spec:
       containers:
-        - name: calcappcont
-          image: sauravnirala/pythoncalculator:v1
+        - name: userappcont
+          image: sauravnirala/usermanagement:v1
           ports:
-            - containerPort: 5000
+            - containerPort: 8087
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mycalcapp-service
-  namespace: calapp
+  name: myuserapp-service
+  namespace: userapp
 spec:
   selector:
-    app: mycalcapp
+    app: myuserapp
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5000
+      targetPort: 8087
   type: LoadBalancer
