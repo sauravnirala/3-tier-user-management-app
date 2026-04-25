@@ -50,7 +50,7 @@ stages {
             withSonarQubeEnv("${SONARQUBE_ENV}") {
                 sh """
                    sonar-scanner \
-                  -Dsonar.projectKey=calculatorwithpython \
+                  -Dsonar.projectKey=3-tier-user-management-app \
                   -Dsonar.sources=app.py \
                   -Dsonar.exclusions=venv/**,__pycache__/** \
                   -Dsonar.python.coverage.reportPaths=coverage.xml \
