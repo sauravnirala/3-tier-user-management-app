@@ -20,8 +20,8 @@ def get_connection():
 
 
 def initialize_database():
-    max_retries = 5
-    retry_delay = 2  # seconds
+    max_retries = 10
+    retry_delay = 5  # seconds
     
     for attempt in range(max_retries):
         try:
@@ -69,6 +69,22 @@ def delete_user_by_id(user_id):
         with closing(db.cursor()) as cursor:
             delete_query = "DELETE FROM user WHERE id = %s"
             cursor.execute(delete_query, (user_id,))
+            db.commit()
+            
+            # Check if any users remain
+            cursor.execute("SELECT COUNT(*) FROM user")
+            count = cursor.fetchone()[0]
+            
+            if count == 0:
+                # If no users left, reset AUTO_INCREMENT to 1
+                cursor.execute("ALTER TABLE user AUTO_INCREMENT = 1")
+            else:
+                # Otherwise, set it to max(id) + 1
+                cursor.execute("SELECT MAX(id) FROM user")
+                max_id = cursor.fetchone()[0]
+                if max_id:
+                    cursor.execute(f"ALTER TABLE user AUTO_INCREMENT = {max_id + 1}")
+            
             db.commit()
 
 

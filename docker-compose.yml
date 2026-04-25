@@ -15,7 +15,7 @@ services:
     image: img
     container_name: python-app
     ports:
-      - "8087:8080"
+      - "8087:8087"
     depends_on:
       - db
     environment:
