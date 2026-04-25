@@ -81,7 +81,7 @@ stages {
         steps {
             withCredentials([usernamePassword(credentialsId: 'nexuscred', passwordVariable: 'passwd', usernameVariable: 'username')]) {
                 sh """
-                python3 -m twine upload --repository-url http://13.126.211.117:8081/repository/pypi-hosted/ \
+                python3 -m twine upload --repository-url http://13.126.211.117:8081/repository/python/ \
                 -u $username -p $passwd dist/*
                 """
             }
