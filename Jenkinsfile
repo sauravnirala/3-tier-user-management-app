@@ -38,6 +38,7 @@ stages {
     stage('Test') {
         steps {
             sh """
+               export ENV=test
                python3 -m pip install pytest pytest-cov
                python3 -m pytest --cov=app --cov-report=xml:coverage.xml test_app.py
             """
