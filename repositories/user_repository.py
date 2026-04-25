@@ -1,6 +1,7 @@
 import mysql.connector
 from contextlib import closing
 from config import DATABASE_CONFIG
+import time
 
 CREATE_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS user (
@@ -19,10 +20,23 @@ def get_connection():
 
 
 def initialize_database():
-    with closing(get_connection()) as db:
-        with closing(db.cursor()) as cursor:
-            cursor.execute(CREATE_TABLE_QUERY)
-            db.commit()
+    max_retries = 5
+    retry_delay = 2  # seconds
+    
+    for attempt in range(max_retries):
+        try:
+            with closing(get_connection()) as db:
+                with closing(db.cursor()) as cursor:
+                    cursor.execute(CREATE_TABLE_QUERY)
+                    db.commit()
+            return  # Success
+        except mysql.connector.Error as e:
+            if attempt < max_retries - 1:
+                print(f"Database connection attempt {attempt + 1}/{max_retries} failed. Retrying in {retry_delay}s...")
+                time.sleep(retry_delay)
+            else:
+                print(f"Failed to connect to database after {max_retries} attempts.")
+                raise
 
 
 def create_user(name, email, address, phonenumber, hashed_password):
