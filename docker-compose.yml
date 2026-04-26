@@ -16,7 +16,7 @@ services:
     ports:
       - "8087:8087"
     environment:
-      DB_HOST: db
+      DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: root
       DB_NAME: testdb
