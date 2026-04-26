@@ -6,7 +6,7 @@ if os.getenv("ENV") == "test":
     }
 else:
     DATABASE_CONFIG = {
-        "host": "db",
+        "host": "mysql",
         "user": "root",
         "password": "root",
         "database": "testdb"
