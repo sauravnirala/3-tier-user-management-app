@@ -18,6 +18,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/add-user')
+def add_user():
+    return render_template('add_user.html')
+
+
 @app.route('/submit', methods=['POST'])
 def submit():
     name = request.form.get('name', '').strip()
@@ -27,7 +32,7 @@ def submit():
     password = request.form.get('password', '')
 
     if not all([name, email, address, phonenumber, password]):
-        return redirect(url_for('index'))
+        return redirect(url_for('add_user'))
 
     user = create_user(name, email, address, phonenumber, password)
     return render_template('submitteddata.html', user=user)
