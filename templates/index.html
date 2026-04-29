@@ -94,6 +94,9 @@
             top: 120px; /* Move down */
             right: 120px; /* Move to the right */
         }
+        .btn-show-all {
+            right: 260px; /* Place left of Fetch Data button */
+        }
     </style>
 </head>
 <body>
@@ -111,6 +114,7 @@
         
     </div>
     <a href="/get-data" class="btn">Fetch Data</a>
+    <a href="/get-data?show=all" class="btn btn-show-all">Show All Data</a>
     <h1>Add New User</h1>
     <form action="/submit" method="post">
         <label for="name">Name:</label><br>

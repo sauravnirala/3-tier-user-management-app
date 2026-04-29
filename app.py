@@ -1,5 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
-from services.user_service import initialize_app_database, create_user, fetch_user_by_id, remove_user_by_id
+from services.user_service import (
+    initialize_app_database,
+    create_user,
+    fetch_user_by_id,
+    fetch_all_users,
+    remove_user_by_id,
+)
 import os
 
 app = Flask(__name__)
@@ -29,7 +35,15 @@ def submit():
 
 @app.route('/get-data', methods=['GET', 'POST'])
 def get_data():
+    if request.method == 'GET' and request.args.get('show') == 'all':
+        users = fetch_all_users()
+        return render_template('data.html', users=users, input_id='All')
+
     if request.method == 'POST':
+        if request.form.get('action') == 'show_all':
+            users = fetch_all_users()
+            return render_template('data.html', users=users, input_id='All')
+
         input_id = request.form.get('input_id', '').strip()
         if not input_id.isdigit():
             return render_template('data.html', users=[], input_id=input_id, error='Enter a numeric ID.')

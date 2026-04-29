@@ -1,5 +1,11 @@
 import bcrypt
-from repositories.user_repository import initialize_database, create_user as repo_create_user, get_user_by_id, delete_user_by_id
+from repositories.user_repository import (
+    initialize_database,
+    create_user as repo_create_user,
+    get_user_by_id,
+    get_all_users,
+    delete_user_by_id,
+)
 
 
 def initialize_app_database():
@@ -17,6 +23,10 @@ def create_user(name, email, address, phonenumber, password):
 
 def fetch_user_by_id(user_id):
     return get_user_by_id(user_id)
+
+
+def fetch_all_users():
+    return get_all_users()
 
 
 def remove_user_by_id(user_id):

@@ -64,6 +64,16 @@ def get_user_by_id(user_id):
     return [row_to_dict(row) for row in rows]
 
 
+def get_all_users():
+    with closing(get_connection()) as db:
+        with closing(db.cursor()) as cursor:
+            select_query = "SELECT id, name, email, Address, phonenumber FROM user ORDER BY id"
+            cursor.execute(select_query)
+            rows = cursor.fetchall()
+
+    return [row_to_dict(row) for row in rows]
+
+
 def delete_user_by_id(user_id):
     with closing(get_connection()) as db:
         with closing(db.cursor()) as cursor:

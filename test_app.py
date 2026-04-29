@@ -171,6 +171,24 @@ class TestFlaskRoutes:
         assert response.status_code == 200
         mock_fetch.assert_called_once_with(1)
 
+    @patch('app.fetch_all_users')
+    def test_get_data_route_post_show_all(self, mock_fetch_all, client):
+        """Test get_data route show all action."""
+        mock_fetch_all.return_value = [
+            {
+                'id': 1,
+                'name': 'John Doe',
+                'email': 'john@example.com',
+                'address': '123 Main St',
+                'phonenumber': '555-1234'
+            }
+        ]
+
+        response = client.post('/get-data', data={'action': 'show_all'})
+
+        assert response.status_code == 200
+        mock_fetch_all.assert_called_once()
+
     def test_get_data_route_post_with_invalid_id(self, client):
         """Test get_data route with non-numeric ID."""
         response = client.post('/get-data', data={'input_id': 'abc'})
