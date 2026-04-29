@@ -48,24 +48,21 @@
             padding: 10px 20px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            position: absolute;
-            top: 120px; /* Move down */
-            right: 120px; /* Move to the right */
             font-size: 14px;
         }
         .dropdown-btn:hover {
             background-color: #0056b3;
         }
         .dropdown {
-            position: absolute;
-            top: 120px;
-            right: 120px;
+            position: relative;
             display: inline-block;
+            margin-top: 12px;
         }
         .dropdown-content {
             display: none;
             position: absolute;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: #ffffff;
             min-width: 180px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -81,7 +78,7 @@
         .dropdown-content a:hover {
             background-color: #f2f2f2;
         }
-        .dropdown:hover .dropdown-content {
+        .dropdown.open .dropdown-content {
             display: block;
         }
         .home-content {
@@ -105,17 +102,30 @@
         </div>
         
     </div>
-    <div class="dropdown">
-        <button class="dropdown-btn">Actions</button>
-        <div class="dropdown-content">
-            <a href="/add-user">Add New User</a>
-            <a href="/get-data">Fetch Data</a>
-            <a href="/get-data?show=all">Show All Data</a>
-        </div>
-    </div>
     <div class="home-content">
         <h1>Welcome to User Management APP</h1>
-        <p>Select an action using the buttons at the top.</p>
+        <div class="dropdown" id="actionsDropdown">
+            <button class="dropdown-btn" id="actionsToggle" type="button">Actions</button>
+            <div class="dropdown-content">
+                <a href="/add-user">Add New User</a>
+                <a href="/get-data">Fetch Data</a>
+                <a href="/get-data?show=all">Show All Data</a>
+            </div>
+        </div>
     </div>
+    <script>
+        const dropdown = document.getElementById('actionsDropdown');
+        const toggle = document.getElementById('actionsToggle');
+
+        toggle.addEventListener('click', function () {
+            dropdown.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+    </script>
 </body>
 </html>
