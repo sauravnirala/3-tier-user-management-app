@@ -10,7 +10,7 @@ services:
       - "3306:3306"
 
   app:
-    image: sauravnirala/usermanagement:latest
+    image: img
     depends_on:
       - db
     ports:
